@@ -1,9 +1,20 @@
-<html>
+<!doctype html>
+<html ng-app="simulation">
+<head>
+  <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
+  <script src="lib/index.js"></script>
+</head>
+
 <div id="underCanopy"></div>
 <div id="x"></div>
 <div id="y"></div>
 <div id="d"></div>
-<canvas style="background: #7ec0ee;" id="screen" width="500" height="400"></canvas>
-<script src="bower_components/lodash/dist/lodash.compat.js"></script>
-<script src="lib/index.js"></script>
+
+<div ng-controller="SimulationCtrl">
+  <button ng-click="simulationStart()">Start</button>
+  <canvas style="background: #7ec0ee;" id="screen" width="500" height="400"></canvas>
+</div>
+
 </html>
+
