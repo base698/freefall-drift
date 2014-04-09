@@ -4,17 +4,24 @@
   <script src="bower_components/lodash/dist/lodash.compat.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
   <script src="lib/index.js"></script>
+  <style>
+    input {
+      width: 40px;
+    }
+  </style>
 </head>
 
-//numJumpers, groupSwitch, groupSize, openingAltitude, timeBetweenGroups, airplaneSpeed
-<div id="underCanopy">{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
-
 <div ng-controller="SimulationCtrl">
-  <span ng-repeat="(alt, speed) in winds">{{alt}} ft @ {{speed}} mph<br></span>
-  <input type="text" ng-model="simulationConfig.numJumpers"/>
-  <input type="text" ng-model="simulationConfig.timeBetweenGroups"/>
+  <label>Number of Jumpers:</label> <input type="text" ng-model="simulationConfig.numJumpers"/>
+  <label>Time Between Groups:</label> <input type="text" ng-model="simulationConfig.timeBetweenGroups"/>
+  <label>Max Group Size:</label> <input type="text" ng-model="simulationConfig.groupSize"/>
+  <label>Switch from Fast/Slow:</label> <input type="text" ng-model="simulationConfig.groupSwitch"/>
+  <label>Opening Altitude:</label> <input type="text" ng-model="simulationConfig.openingAltitude"/>
   <button ng-click="simulationStart()">Start</button>
-  <canvas style="background: #7ec0ee;" id="screen" width="500" height="400"></canvas>
+  <canvas style="background: #7ec0ee;" id="screen" width="800" height="600"></canvas>
+  <div id="underCanopy">{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
+  <br>
+  <span ng-repeat="(alt, speed) in winds">{{alt}} ft @ {{speed}} mph<br></span>
 </div>
 
 </html>
