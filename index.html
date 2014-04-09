@@ -6,12 +6,13 @@
   <script src="lib/index.js"></script>
 </head>
 
-<div id="underCanopy"></div>
-<div id="x"></div>
-<div id="y"></div>
-<div id="d"></div>
+//numJumpers, groupSwitch, groupSize, openingAltitude, timeBetweenGroups, airplaneSpeed
+<div id="underCanopy">{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
 
 <div ng-controller="SimulationCtrl">
+  <span ng-repeat="(alt, speed) in winds">{{alt}} ft @ {{speed}} mph<br></span>
+  <input type="text" ng-model="simulationConfig.numJumpers"/>
+  <input type="text" ng-model="simulationConfig.timeBetweenGroups"/>
   <button ng-click="simulationStart()">Start</button>
   <canvas style="background: #7ec0ee;" id="screen" width="500" height="400"></canvas>
 </div>
