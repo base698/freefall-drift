@@ -8,6 +8,12 @@
     input {
       width: 40px;
     }
+
+    .wind-table {
+      position: absolute;
+      right: 100px;
+      top: 200px;
+    }
   </style>
 </head>
 
@@ -20,10 +26,14 @@
   <label>Opening Altitude:</label> <input type="text" ng-model="simulationConfig.openingAltitude"/>
   <button ng-click="simulationStart()">Start</button>
   <canvas style="background: #7ec0ee;" id="screen" width="800" height="600"></canvas>
-  <div id="underCanopy">{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
+  <div>{{timeRunning || 0}} seconds</div>
+  <div>{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
   <div>{{canopiesUnder1k}} Maximum Groups Under Canopy @ 1000 ft</div>
   <br>
-  <span ng-repeat="alt in windAltitude">{{alt}} ft @ {{winds[alt]}} mph<br></span>
+  <span ng-repeat="distance in horizontalDistances">{{distance.distance}} ft apart<br></span>
+  <div class="wind-table">
+    <span ng-repeat="alt in windAltitude">{{alt}} ft @ {{winds[alt]}} mph<br></span>
+  </div>
 </div>
 
 </html>
