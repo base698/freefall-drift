@@ -11,8 +11,16 @@
 
     .wind-table {
       position: absolute;
-      right: 100px;
-      top: 200px;
+      right: 160px;
+      top: 70px;
+    }
+    .wind-table span {
+      display: block;
+      padding-bottom: 100px;
+    }
+
+    .wind-table span input {
+      align: right;
     }
   </style>
 </head>
@@ -28,11 +36,15 @@
   <canvas style="background: #7ec0ee;" id="screen" width="800" height="600"></canvas>
   <div>{{timeRunning || 0}} seconds</div>
   <div>{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
-  <div>{{canopiesUnder1k}} Maximum Groups Under Canopy @ 1000 ft</div>
+  <div>{{canopiesUnder1k}} Maximum Groups &lt; 1000 ft</div>
   <br>
   <span ng-repeat="distance in horizontalDistances">{{distance.distance}} ft apart<br></span>
   <div class="wind-table">
-    <span ng-repeat="alt in windAltitude">{{alt}} ft @ {{winds[alt]}} mph<br></span>
+    <span>12000 ft @ <input ng-model="winds.12000" type="text">mph<br></span>
+    <span>9000 ft @ <input ng-model="winds.9000" type="text">mph<br></span>
+    <span>6000 ft @ <input ng-model="winds.6000" type="text">mph<br></span>
+    <span>3000 ft @ <input ng-model="winds.3000" type="text">mph<br></span>
+    <span>0 ft @ <input ng-model="winds.0" type="text">mph<br></span>
   </div>
 </div>
 
