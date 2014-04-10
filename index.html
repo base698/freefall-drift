@@ -1,6 +1,7 @@
 <!doctype html>
 <html ng-app="simulation">
 <head>
+  <script src="lib/heatmap.js"></script>
   <script src="bower_components/lodash/dist/lodash.compat.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
   <script src="lib/index.js"></script>
@@ -11,7 +12,7 @@
 
     .wind-table {
       position: absolute;
-      right: 160px;
+      right: 150px;
       top: 100px;
     }
     .wind-table span {
@@ -22,9 +23,21 @@
     .wind-table span input {
       align: right;
     }
-    canvas {
-      margin: 30px 0;
+
+    div#heatmap {
+      width: 40px;
+      height: 600px;
+      position: absolute;
+      top: 81px;
+      left: 808px;
     }
+
+    canvas#screen {
+      margin: 30px 0;
+      width: 800px;
+      height: 600px;
+    }
+
     .groups {
       display: inline-block;
     }
@@ -47,12 +60,13 @@
   <label>Switch between fall rates:</label> <input type="text" ng-model="simulationConfig.groupSwitch"/>
   <br>
   <div id="groups-view">
-    <div class="groups" ng-repeat="group in getInitConfig(simulationConfig)">
+    <div class="groups" ng-repeat="group in airplaneLoad.groups">
       <span style="color: {{jumper.color}};" ng-repeat="jumper in group">{{jumper.terminal / ftPerSecond | number:0}}&nbsp;</span>
       &nbsp;&nbsp;&nbsp;&nbsp;
     </div>
   </div>
-  <canvas style="background: #7ec0ee;" id="screen" width="800" height="600"></canvas>
+  <canvas width="800" height="600" style="background: #7ec0ee;" id="screen"></canvas>
+  <div id="heatmap"></div>
   <div>{{timeRunning || 0}} seconds</div>
   <div>{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
   <div>{{canopiesUnder1k}} Maximum Groups &lt; 1000 ft</div>
