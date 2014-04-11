@@ -73,7 +73,7 @@
   <div>{{canopiesUnder1k}} Maximum Groups &lt; 1000 ft</div>
   <br>
   <div id="horizontal-distances">
-  <span ng-repeat="distance in horizontalDistances">{{distance.distance}} ft apart<br></span>
+  <span ng-repeat="distance in horizontalDistances">{{distance.distance | number:0}} ft apart<br></span>
   </div>
   <div class="wind-table">
     <span>12000 ft @ <input ng-model="winds.12000" type="text">mph<br></span>
