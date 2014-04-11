@@ -9,8 +9,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular-route.js"></script>
   <script src="lib/index.js"></script>
   <style>
-    div, span, body, p {
+    h4, div, span, body, p {
       font-family: verdana;  
+    }
+    
+    
+    #horizontal-distances {
+      margin: -100px 0 0 308px;
+    }
+
+    #horizontal-distances h4 {
+      margin-bottom: 3px;
     }
 
     input {
@@ -20,7 +29,7 @@
     .wind-table {
       position: absolute;
       left: 660px;
-      top: 130px;
+      top: 120px;
     }
     .wind-table span {
       display: block;
@@ -85,7 +94,8 @@
   <div>{{canopiesUnder1k}} Maximum Groups &lt; 1000 ft</div>
   <br>
   <div id="horizontal-distances">
-  <span ng-repeat="distance in horizontalDistances">{{distance.distance | number:0}} ft apart<br></span>
+  <h4>Minimum horizontal distances</h4>
+  <span ng-repeat="distance in horizontalDistances">{{distance.distance | number:0}} ft <br></span>
   </div>
   <div class="wind-table">
     <span>12000 ft @ <input ng-model="winds.12000" type="text">mph<br></span>
