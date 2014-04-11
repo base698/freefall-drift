@@ -113,7 +113,7 @@
       <input type="number" min="1" max="23" ng-model="simulationConfig.numJumpers"/>
     </div>
     <div class="groups" ng-repeat="group in airplaneLoad.groups">
-      <span style="color: {{jumper.color}}; cursor: pointer;" ng-click="changeSpeed(jumper)" ng-repeat="jumper in group"><img ng-src="{{(jumper.terminal>140*ftPerSecond)?'/img/headdown.png':'/img/belly.png'}}">&nbsp;</span>
+      <span style="color: {{jumper.color}}; cursor: pointer;" ng-click="changeSpeed(jumper)" ng-repeat="jumper in group"><img ng-src="{{(jumper.terminal>140*ftPerSecond)?'img/headdown.png':'img/belly.png'}}">&nbsp;</span>
       &nbsp;&nbsp;&nbsp;&nbsp;
     </div>
   </div>
