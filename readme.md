@@ -1,4 +1,4 @@
-Simple Free Drift Explorer v0.1
+Simple Freefall Drift Explorer v0.1
 ----------
 
 Meant to be a more robust example of simulation here: http://www.omniskore.com/freefall_drift2.html
