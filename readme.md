@@ -14,19 +14,19 @@ Winds
 Example CA 4-8-14
 --
 
-*  0: 5,
-*  3000: 15,
-*  6000: 20,
-*  9000: 25,
+*  0: 5
+*  3000: 15
+*  6000: 20
+*  9000: 25
 *  12000: 30
 
 Example NC 4-8-14
 --
 
-*   0: 15,
-*   3000: 20,
-*   6000: 45,
-*   9000: 50,
+*   0: 15
+*   3000: 20
+*   6000: 45
+*   9000: 50
 *   12000: 65
 
 
@@ -39,4 +39,5 @@ TODO
 - Persist simulation runs.
 - Link sharing for good runs to illustrate a point.  
 - Heat map for horizontal proximity.
+- Use consistent units in meters.
 
