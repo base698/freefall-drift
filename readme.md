@@ -1,7 +1,7 @@
 Simple Free Drift Explorer v0.1
 ----------
 
-Meant to be a more robust example of: Example Simulation from: http://www.omniskore.com/freefall_drift2.html
+Meant to be a more robust example of simulation here: http://www.omniskore.com/freefall_drift2.html
 
 Features
 ----
@@ -12,7 +12,7 @@ Winds
 -------
 
 Example CA 4-8-14
-----
+--
 
 *  0: 5,
 *  3000: 15,
@@ -21,7 +21,7 @@ Example CA 4-8-14
 *  12000: 30
 
 Example NC 4-8-14
-----
+--
 
 *   0: 15,
 *   3000: 20,
