@@ -1,0 +1,152 @@
+<!doctype html>
+<html ng-app="simulation">
+<head>
+  <title>Drifting ++</title>
+  <script src="lib/heap.js"></script>
+  <script src="lib/heatmap.js"></script>
+  <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular-route.js"></script>
+  <script src="lib/index.js"></script>
+  <style>
+    h4, div, span, body, p {
+      font-family: verdana;  
+    }
+    
+    .stats-box {
+      top: 62px;
+      position:relative;
+    }
+
+    #horizontal-distances {
+      margin: -58px 0 0 308px;
+      height:180px;
+    }
+
+    #horizontal-distances h4 {
+      margin-bottom: 3px;
+    }
+
+    input {
+      width: 40px;
+    }
+
+    .wind-table {
+      position: absolute;
+      left: 660px;
+      top: 160px;
+    }
+    .wind-table span {
+      display: block;
+      padding-bottom: 116px;
+    }
+
+    .wind-table span input {
+      align: right;
+    }
+
+    div#heatmap {
+      width: 40px;
+      height: 600px;
+      top: 30px;
+      left: 600px;
+      position: absolute;
+    }
+
+    .screen-container .options {
+      position: absolute;
+    }
+
+    .options label {
+      margin: 0 0 0 10px;
+    }
+
+    .screen-container {
+      width: 640px;
+      height:600px;
+      position: relative;
+    }
+
+    
+    .screen-container input.open {
+      background: url(img/canopy-icon.png) no-repeat scroll 0px 0px;
+      padding-left:30px;
+      height: 20px;
+      font-size: 10px;
+    }
+
+    canvas#screen {
+      top: 0px;
+      margin: 30px 0;
+      width: 600px;
+      height: 600px;
+      position: absolute;
+    }
+
+    .groups {
+      display: inline-block;
+    }
+
+    #groups-view {
+      width: 100%;
+      margin: 4px 0 10px 2px;
+      height: 50px;
+    }
+
+    #start {
+      position: absolute;
+      top: 290px;
+      width: 100px;
+      height: 50px;
+      border-radius: 6px;
+      left: 246px;
+      z-index:1;
+    }
+  </style>
+</head>
+
+<div ng-controller="SimulationCtrl">
+  <br>
+  <div id="groups-view">
+    <div>
+      <span>Manifest:</span>
+      <input type="number" min="1" max="23" ng-model="simulationConfig.numJumpers"/>
+    </div>
+    <div class="groups" ng-repeat="group in airplaneLoad.groups">
+      <span style="color: {{jumper.color}}; cursor: pointer;" ng-click="changeSpeed(jumper)" ng-repeat="jumper in group"><img ng-src="{{(jumper.terminal>140*ftPerSecond)?'/img/headdown.png':'/img/belly.png'}}">&nbsp;</span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+  </div>
+
+  <div class="screen-container">
+    <div class="options">
+      <input class="open" type="text" ng-model="simulationConfig.openingAltitude"/>
+      <label>Exit Separation:</label> <input type="text" ng-model="simulationConfig.timeBetweenGroups"/>
+      <label>Fast Fall First</label> <input type="checkbox" ng-model="simulationConfig.fastFallFirst"/>
+    </div>
+
+    <button id="start" ng-hide="running" ng-click="simulationStart()">Start</button>
+    <canvas width="600" height="600" style="background: #7ec0ee;" id="screen"></canvas>
+    <div id="heatmap"></div>
+  </div>
+  <div class='stats-box'>
+    <div class="stats">{{timeRunning || 0 | number:0}} seconds</div>
+    <div class="stats">{{groupsUnderCanopy || 0}} Groups Under Canopy</div>
+    <div class="stats">{{canopiesUnder1k}} Maximum Groups &lt; 1000 ft</div>
+  </div>
+  <br>
+  <div id="horizontal-distances">
+  <h4 ng-show="horizontalDistances">Minimum horizontal distances</h4>
+  <span ng-repeat="distance in horizontalDistances">{{distance.distance | number:0}} ft <br></span>
+  </div>
+  <div class="wind-table">
+    <span>12000 ft @ <input ng-model="winds.12000" type="text">mph<br></span>
+    <span>9000 ft @ <input ng-model="winds.9000" type="text">mph<br></span>
+    <span>6000 ft @ <input ng-model="winds.6000" type="text">mph<br></span>
+    <span>3000 ft @ <input ng-model="winds.3000" type="text">mph<br></span>
+    <span>0 ft @ <input ng-model="winds.0" type="text">mph<br></span>
+  </div>
+</div>
+
+</html>
+
