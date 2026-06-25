@@ -1,43 +1,82 @@
-Simple Freefall Drift Explorer v0.1
-----------
+# Freefall Drift Explorer
 
-Meant to be a more robust example of simulation here: http://www.omniskore.com/freefall_drift2.html
+A skydiving **wind-drift simulator**. Set the winds at each altitude, the
+exit separation, and the jump order, then watch where each group ends up —
+and, critically, how vertically stacked everyone is under canopy at ~2500 ft.
 
-Features
-----
+**Live:** <https://westcot.io/projects/freefall-drift/> · <https://base698.github.io/freefall-drift/>
+A more robust take on the classic [omniskore drift sim](http://www.omniskore.com/freefall_drift2.html).
 
-Change wind speeds, number of jumpers, and opening altitude.  Heat map to show vertical proximity under canopy at 2500 ft.  
+> Built ~2014. It still runs as-is (AngularJS 1.3, a hand-rolled heat map). Migrated to westcot.io intact.
 
-Winds
--------
+---
 
-Example CA 4-8-14
---
+## Why I built it — exit order and canopy traffic
 
-*  0: 5
-*  3000: 15
-*  6000: 20
-*  9000: 25
-*  12000: 30
+There's a long-settled rule in skydiving: on a mixed load, **freefliers exit
+last** because they fall faster. The usual justification is *vertical
+separation in freefall* — keep the fast, steep fallers away from the slower
+belly group as everyone deploys.
 
-Example NC 4-8-14
---
+I think that framing misses where people actually get hurt: **under canopy.**
+Here's the case this simulator was built to make:
 
-*   0: 15
-*   3000: 20
-*   6000: 45
-*   9000: 50
-*   12000: 65
+- Belly fliers fall slower, so they spend **more time drifting** down the
+  wind line. Freefliers fall faster and cover less ground.
+- When freefliers go *first* and separation is tight, both groups tend to
+  reach **deployment altitude at roughly the same time and place** — the fast
+  group has "waited" for the slow group to catch up vertically.
+- The result is a **congested opening band**: lots of canopies opening at
+  similar altitudes, converging on the same landing area at the same time.
+  That's a canopy-collision setup, and I believe a number of canopy-collision
+  fatalities trace back to exactly this dynamic.
 
+The mitigation the sim is meant to illustrate:
 
-TODO
-----------
+1. **Freefliers out first**, *and*
+2. **More separation between groups** —
 
-- Lots of Physics Changes!
+so the slower belly group drifts into clear air and the openings are spread
+across altitude and ground track instead of stacked on top of each other.
+
+This is a **minority opinion** — most of the sport optimizes exit order for
+freefall separation, not canopy traffic. The tool exists to let you set real
+winds and *see* the under-canopy stacking for yourself rather than argue it in
+the abstract. Set your own numbers and decide.
+
+> ⚠️ This is a teaching/argument toy with simplified physics, not a dispatch
+> planner. Follow your DZ's rules and your S&TA. Nothing here is jump advice.
+
+## What it shows
+
+- Per-altitude **wind speed** inputs (0 / 3k / 6k / 9k / 12k ft).
+- **Manifest size**, **exit separation**, and a **fast-fall-first** toggle.
+- A **heat map** of vertical proximity under canopy at ~2500 ft — the
+  congestion signal.
+- Minimum horizontal distances between groups.
+
+## Example winds
+
+**CA (4-8-14)** — 0:5 · 3000:15 · 6000:20 · 9000:25 · 12000:30
+**NC (4-8-14)** — 0:15 · 3000:20 · 6000:45 · 9000:50 · 12000:65
+
+(altitude in ft : wind in mph)
+
+## Run it locally
+
+It's a static page — no build step:
+
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000
+```
+
+(AngularJS loads from a CDN; `lib/` and `bower_components/lodash` are vendored.)
+
+## TODO
+
+- Lots of physics improvements.
 - More UI styling.
 - Clouds.
-- Persist simulation runs.
-- Link sharing for good runs to illustrate a point.  
-- Heat map for horizontal proximity.
-- Use consistent units in meters.
-
+- Persist simulation runs; shareable links for illustrative runs.
+- Heat map for **horizontal** proximity too.
+- Consistent SI units (meters).
