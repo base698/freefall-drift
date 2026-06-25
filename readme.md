@@ -14,21 +14,23 @@ A more robust take on the classic [omniskore drift sim](http://www.omniskore.com
 ## Why I built it — exit order and canopy traffic
 
 There's a long-settled rule in skydiving: on a mixed load, **freefliers exit
-last** because they fall faster. The usual justification is *vertical
-separation in freefall* — keep the fast, steep fallers away from the slower
-belly group as everyone deploys.
+last** because they fall faster. The usual justification is **horizontal
+separation** — spacing the groups apart along the jump run so they don't end
+up over the same patch of ground. The standard worry about putting freefliers
+*first* is that the slower belly group drifts the most under canopy and could
+drift **over the top of** the freefliers and collide.
 
-I think that framing misses where people actually get hurt: **under canopy.**
-Here's the case this simulator was built to make:
+I think that framing misses where people actually get hurt, and has the
+congestion backwards. Here's the case this simulator was built to make:
 
 - Belly fliers fall slower, so they spend **more time drifting** down the
   wind line. Freefliers fall faster and cover less ground.
-- When freefliers go *first* and separation is tight, both groups tend to
-  reach **deployment altitude at roughly the same time and place** — the fast
-  group has "waited" for the slow group to catch up vertically.
+- When freefliers go **last** (the conventional order), the faster fallers
+  descend quickly and **catch up to the belly group's opening altitude** — so
+  both groups reach deployment at roughly the same time and place.
 - The result is a **congested opening band**: lots of canopies opening at
-  similar altitudes, converging on the same landing area at the same time.
-  That's a canopy-collision setup, and I believe a number of canopy-collision
+  similar altitudes, converging on the same landing area at once. That's a
+  canopy-collision setup, and I believe a number of canopy-collision
   fatalities trace back to exactly this dynamic.
 
 The mitigation the sim is meant to illustrate:
@@ -36,8 +38,9 @@ The mitigation the sim is meant to illustrate:
 1. **Freefliers out first**, *and*
 2. **More separation between groups** —
 
-so the slower belly group drifts into clear air and the openings are spread
-across altitude and ground track instead of stacked on top of each other.
+so the slower belly group drifts into clear air (the extra separation answers
+the drift-over-the-top worry) and openings spread across altitude and ground
+track instead of stacking on top of each other.
 
 This is a **minority opinion** — most of the sport optimizes exit order for
 freefall separation, not canopy traffic. The tool exists to let you set real
