@@ -10,7 +10,7 @@ export type RunSummary = {
   fullyOpenAltitudeRangeFt: { min: number; max: number };
   canopyCongestionScore: number;
   canopyCollisionExposurePairSeconds: number;
-  estimatedCanopyCollisionRiskPct: number;
+  estimatedCanopyCollisionRiskPer10k: number;
 };
 
 const CONGESTION_HORIZONTAL_M = ft(300);
@@ -18,7 +18,7 @@ const CONGESTION_VERTICAL_M = ft(150);
 const LANDING_PATTERN_ALTITUDE_M = ft(1000);
 const COLLISION_EXPOSURE_HORIZONTAL_M = ft(500);
 const COLLISION_EXPOSURE_VERTICAL_M = ft(200);
-const BASE_COLLISION_PROBABILITY_PER_PAIR_SECOND = 0.0002;
+const BASE_COLLISION_PROBABILITY_PER_PAIR_SECOND = 0.000002;
 
 export function summarizeRun(snapshots: WorldSnapshot[]): RunSummary {
   const first = snapshots[0];
@@ -60,7 +60,7 @@ export function summarizeRun(snapshots: WorldSnapshot[]): RunSummary {
     }
   }
   const openAltitudes = deploymentEvents.map(e => e.fullyOpenAltitudeFt);
-  const estimatedCanopyCollisionRiskPct = 100 * (1 - Math.exp(-canopyCollisionExposurePairSeconds * BASE_COLLISION_PROBABILITY_PER_PAIR_SECOND));
+  const estimatedCanopyCollisionRiskPer10k = 10000 * (1 - Math.exp(-canopyCollisionExposurePairSeconds * BASE_COLLISION_PROBABILITY_PER_PAIR_SECOND));
   return {
     deploymentEvents,
     maxOpenCanopiesBelow1000Ft,
@@ -69,6 +69,6 @@ export function summarizeRun(snapshots: WorldSnapshot[]): RunSummary {
     fullyOpenAltitudeRangeFt: { min: Math.min(...openAltitudes), max: Math.max(...openAltitudes) },
     canopyCongestionScore: Number(canopyCongestionPairSeconds.toFixed(2)),
     canopyCollisionExposurePairSeconds: Number(canopyCollisionExposurePairSeconds.toFixed(2)),
-    estimatedCanopyCollisionRiskPct: Number(estimatedCanopyCollisionRiskPct.toFixed(3)),
+    estimatedCanopyCollisionRiskPer10k: Number(estimatedCanopyCollisionRiskPer10k.toFixed(2)),
   };
 }

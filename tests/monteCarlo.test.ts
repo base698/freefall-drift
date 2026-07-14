@@ -55,8 +55,9 @@ describe('canopy risk metrics', () => {
     ]);
 
     expect(closeBelowPattern.canopyCollisionExposurePairSeconds).toBeGreaterThan(0);
-    expect(closeBelowPattern.estimatedCanopyCollisionRiskPct).toBeGreaterThan(0);
+    expect(closeBelowPattern.estimatedCanopyCollisionRiskPer10k).toBeGreaterThan(0.01);
     expect(farBelowPattern.canopyCollisionExposurePairSeconds).toBe(0);
+    expect(farBelowPattern.estimatedCanopyCollisionRiskPer10k).toBe(0);
     expect(closeHigh.canopyCollisionExposurePairSeconds).toBe(0);
   });
 });

@@ -1,4 +1,4 @@
-run,maxOpenCanopiesBelow1000Ft,maxOpenCanopiesBelow500Ft,minHorizontalSeparationFt,fullyOpenAltitudeMinFt,fullyOpenAltitudeMaxFt,fullyOpenAltitudeSpreadFt,canopyCongestionScore,canopyCollisionExposurePairSeconds,estimatedCanopyCollisionRiskPct
+run,maxOpenCanopiesBelow1000Ft,maxOpenCanopiesBelow500Ft,minHorizontalSeparationFt,fullyOpenAltitudeMinFt,fullyOpenAltitudeMaxFt,fullyOpenAltitudeSpreadFt,canopyCongestionScore,canopyCollisionExposurePairSeconds,estimatedCanopyCollisionRiskPer10k
 1,6,3,858.2379835504563,2749.3625664959204,3084.2531149256984,334.89054842977794,0,0,0
 2,5,3,856.4846296980148,2772.99605081312,3189.6693494671326,416.6732986540128,0,0,0
 3,8,6,818.9300893029894,2690.9829159292644,3138.6513737806204,447.6684578513559,0,0,0
