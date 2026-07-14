@@ -72,6 +72,20 @@ describe('world simulation', () => {
     expect(final.jumpers.every(j => j.phase === 'landed')).toBe(true);
     expect(maxLandingDistanceFt).toBeLessThanOrEqual(240);
   });
+
+  it('samples landing targets as a normal cluster around the spot', () => {
+    const scenario = createScenario({ seed: 123, numJumpers: 1000, landingAreaRadiusFt: 200 });
+    const distancesFt = scenario.jumpers
+      .map(j => Math.hypot(j.landingTargetM.x - scenario.spotM.x, j.landingTargetM.z - scenario.spotM.z))
+      .map(mToFt)
+      .sort((a, b) => a - b);
+    const percentile = (p: number) => distancesFt[Math.floor((distancesFt.length - 1) * p)];
+
+    expect(percentile(0.5)).toBeLessThan(110);
+    expect(percentile(0.9)).toBeLessThan(175);
+    expect(distancesFt.some(d => d > 25)).toBe(true);
+    expect(distancesFt.every(d => d <= 200)).toBe(true);
+  });
 });
 
 describe('metrics', () => {

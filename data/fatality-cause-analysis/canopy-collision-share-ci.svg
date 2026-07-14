@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<rect width="100%" height="100%" fill="#111827"/>
+<text x="80" y="32" fill="#f9fafb" font-family="Arial" font-size="24" font-weight="700">Annual canopy-collision fatality share with 95% Wilson intervals</text>
+<text x="80" y="55" fill="#cbd5e1" font-family="Arial" font-size="13">Intervals are wide because yearly fatality counts are small; interpret individual-year spikes cautiously.</text>
+<line x1="80" x2="1165" y1="615.0" y2="615.0" stroke="#334155" stroke-width="1"/>
+<text x="68" y="619.0" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">0%</text>
+<line x1="80" x2="1165" y1="537.9" y2="537.9" stroke="#334155" stroke-width="1"/>
+<text x="68" y="541.9" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">5%</text>
+<line x1="80" x2="1165" y1="460.8" y2="460.8" stroke="#334155" stroke-width="1"/>
+<text x="68" y="464.8" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">10%</text>
+<line x1="80" x2="1165" y1="383.8" y2="383.8" stroke="#334155" stroke-width="1"/>
+<text x="68" y="387.8" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">15%</text>
+<line x1="80" x2="1165" y1="306.7" y2="306.7" stroke="#334155" stroke-width="1"/>
+<text x="68" y="310.7" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">20%</text>
+<line x1="80" x2="1165" y1="229.6" y2="229.6" stroke="#334155" stroke-width="1"/>
+<text x="68" y="233.6" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">25%</text>
+<line x1="80" x2="1165" y1="152.5" y2="152.5" stroke="#334155" stroke-width="1"/>
+<text x="68" y="156.5" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">30%</text>
+<line x1="80" x2="1165" y1="75.4" y2="75.4" stroke="#334155" stroke-width="1"/>
+<text x="68" y="79.4" text-anchor="end" fill="#cbd5e1" font-family="Arial" font-size="12">35%</text>
+<text transform="translate(80.0,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">1999</text>
+<text transform="translate(163.5,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2001</text>
+<text transform="translate(246.9,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2003</text>
+<text transform="translate(330.4,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2005</text>
+<text transform="translate(413.8,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2007</text>
+<text transform="translate(497.3,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2009</text>
+<text transform="translate(580.8,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2011</text>
+<text transform="translate(664.2,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2013</text>
+<text transform="translate(747.7,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2015</text>
+<text transform="translate(831.2,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2017</text>
+<text transform="translate(914.6,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2019</text>
+<text transform="translate(998.1,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2021</text>
+<text transform="translate(1081.5,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2023</text>
+<text transform="translate(1165.0,655) rotate(45)" fill="#cbd5e1" font-family="Arial" font-size="11">2025</text>
+<line x1="288.7" x2="288.7" y1="60" y2="615" stroke="#93c5fd" stroke-dasharray="6,6" opacity="0.75"/>
+<text transform="translate(295.7,76) rotate(90)" fill="#93c5fd" font-family="Arial" font-size="11">2004 fast/slow-order change candidate</text>
+<line x1="413.8" x2="413.8" y1="60" y2="615" stroke="#f8fafc" stroke-dasharray="6,6" opacity="0.75"/>
+<text transform="translate(420.8,76) rotate(90)" fill="#f8fafc" font-family="Arial" font-size="11">2007 scan-selected cutoff</text>
+<line x1="539.0" x2="539.0" y1="60" y2="615" stroke="#fca5a5" stroke-dasharray="6,6" opacity="0.75"/>
+<text transform="translate(546.0,76) rotate(90)" fill="#fca5a5" font-family="Arial" font-size="11">2010 definitely-adopted candidate</text>
+<line x1="80" x2="1165" y1="615" y2="615" stroke="#94a3b8"/>
+<line x1="80" x2="80" y1="60" y2="615" stroke="#94a3b8"/>
+<line x1="80.0" x2="80.0" y1="604.9" y2="333.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="75.0" x2="85.0" y1="604.9" y2="604.9" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="75.0" x2="85.0" y1="333.1" y2="333.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="80.0" cy="557.9" r="4" fill="#e11d48"/>
+<title>1999: 1/27 = 3.7% (95% CI 0.7%-18.3%)</title>
+<line x1="121.7" x2="121.7" y1="588.3" y2="304.4" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="116.7" x2="126.7" y1="588.3" y2="588.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="116.7" x2="126.7" y1="304.4" y2="304.4" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="121.7" cy="518.6" r="4" fill="#e11d48"/>
+<title>2000: 2/32 = 6.2% (95% CI 1.7%-20.1%)</title>
+<line x1="163.5" x2="163.5" y1="590.6" y2="328.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="158.5" x2="168.5" y1="590.6" y2="590.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="158.5" x2="168.5" y1="328.1" y2="328.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="163.5" cy="526.9" r="4" fill="#e11d48"/>
+<title>2001: 2/35 = 5.7% (95% CI 1.6%-18.6%)</title>
+<line x1="205.2" x2="205.2" y1="615.0" y2="454.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="200.2" x2="210.2" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="200.2" x2="210.2" y1="454.2" y2="454.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="205.2" cy="615.0" r="4" fill="#e11d48"/>
+<title>2002: 0/33 = 0.0% (95% CI 0.0%-10.4%)</title>
+<line x1="246.9" x2="246.9" y1="615.0" y2="409.7" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="241.9" x2="251.9" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="241.9" x2="251.9" y1="409.7" y2="409.7" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="246.9" cy="615.0" r="4" fill="#e11d48"/>
+<title>2003: 0/25 = 0.0% (95% CI 0.0%-13.3%)</title>
+<line x1="288.7" x2="288.7" y1="615.0" y2="376.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="283.7" x2="293.7" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="283.7" x2="293.7" y1="376.6" y2="376.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="288.7" cy="615.0" r="4" fill="#e11d48"/>
+<title>2004: 0/21 = 0.0% (95% CI 0.0%-15.5%)</title>
+<line x1="330.4" x2="330.4" y1="615.0" y2="423.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="325.4" x2="335.4" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="325.4" x2="335.4" y1="423.0" y2="423.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="330.4" cy="615.0" r="4" fill="#e11d48"/>
+<title>2005: 0/27 = 0.0% (95% CI 0.0%-12.5%)</title>
+<line x1="372.1" x2="372.1" y1="615.0" y2="376.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="367.1" x2="377.1" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="367.1" x2="377.1" y1="376.6" y2="376.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="372.1" cy="615.0" r="4" fill="#e11d48"/>
+<title>2006: 0/21 = 0.0% (95% CI 0.0%-15.5%)</title>
+<line x1="413.8" x2="413.8" y1="422.3" y2="-169.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="408.8" x2="418.8" y1="422.3" y2="422.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="408.8" x2="418.8" y1="-169.3" y2="-169.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="413.8" cy="186.8" r="4" fill="#e11d48"/>
+<title>2007: 5/18 = 27.8% (95% CI 12.5%-50.9%)</title>
+<line x1="455.6" x2="455.6" y1="501.9" y2="97.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="450.6" x2="460.6" y1="501.9" y2="501.9" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="450.6" x2="460.6" y1="97.5" y2="97.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="455.6" cy="358.1" r="4" fill="#e11d48"/>
+<title>2008: 5/30 = 16.7% (95% CI 7.3%-33.6%)</title>
+<line x1="497.3" x2="497.3" y1="458.0" y2="-148.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="492.3" x2="502.3" y1="458.0" y2="458.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="492.3" x2="502.3" y1="-148.1" y2="-148.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="497.3" cy="229.6" r="4" fill="#e11d48"/>
+<title>2009: 4/16 = 25.0% (95% CI 10.2%-49.5%)</title>
+<line x1="539.0" x2="539.0" y1="451.2" y2="-80.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="534.0" x2="544.0" y1="451.2" y2="451.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="534.0" x2="544.0" y1="-80.2" y2="-80.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="539.0" cy="247.9" r="4" fill="#e11d48"/>
+<title>2010: 5/21 = 23.8% (95% CI 10.6%-45.1%)</title>
+<line x1="580.8" x2="580.8" y1="394.8" y2="-118.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="575.8" x2="585.8" y1="394.8" y2="394.8" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="575.8" x2="585.8" y1="-118.5" y2="-118.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="580.8" cy="183.3" r="4" fill="#e11d48"/>
+<title>2011: 7/25 = 28.0% (95% CI 14.3%-47.6%)</title>
+<line x1="622.5" x2="622.5" y1="600.6" y2="235.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="617.5" x2="627.5" y1="600.6" y2="600.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="617.5" x2="627.5" y1="235.1" y2="235.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="622.5" cy="533.9" r="4" fill="#e11d48"/>
+<title>2012: 1/19 = 5.3% (95% CI 0.9%-24.6%)</title>
+<line x1="664.2" x2="664.2" y1="615.0" y2="402.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="659.2" x2="669.2" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="659.2" x2="669.2" y1="402.3" y2="402.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="664.2" cy="615.0" r="4" fill="#e11d48"/>
+<title>2013: 0/24 = 0.0% (95% CI 0.0%-13.8%)</title>
+<line x1="706.0" x2="706.0" y1="579.3" y2="216.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="701.0" x2="711.0" y1="579.3" y2="579.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="701.0" x2="711.0" y1="216.5" y2="216.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="706.0" cy="486.5" r="4" fill="#e11d48"/>
+<title>2014: 2/24 = 8.3% (95% CI 2.3%-25.8%)</title>
+<line x1="747.7" x2="747.7" y1="574.1" y2="169.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="742.7" x2="752.7" y1="574.1" y2="574.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="742.7" x2="752.7" y1="169.2" y2="169.2" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="747.7" cy="468.2" r="4" fill="#e11d48"/>
+<title>2015: 2/21 = 9.5% (95% CI 2.7%-28.9%)</title>
+<line x1="789.4" x2="789.4" y1="602.0" y2="265.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="784.4" x2="794.4" y1="602.0" y2="602.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="784.4" x2="794.4" y1="265.5" y2="265.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="789.4" cy="541.6" r="4" fill="#e11d48"/>
+<title>2016: 1/21 = 4.8% (95% CI 0.8%-22.7%)</title>
+<line x1="831.2" x2="831.2" y1="579.3" y2="216.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="826.2" x2="836.2" y1="579.3" y2="579.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="826.2" x2="836.2" y1="216.5" y2="216.5" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="831.2" cy="486.5" r="4" fill="#e11d48"/>
+<title>2017: 2/24 = 8.3% (95% CI 2.3%-25.8%)</title>
+<line x1="872.9" x2="872.9" y1="615.0" y2="263.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="867.9" x2="877.9" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="867.9" x2="877.9" y1="263.3" y2="263.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="872.9" cy="615.0" r="4" fill="#e11d48"/>
+<title>2018: 0/13 = 0.0% (95% CI 0.0%-22.8%)</title>
+<line x1="914.6" x2="914.6" y1="615.0" y2="300.7" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="909.6" x2="919.6" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="909.6" x2="919.6" y1="300.7" y2="300.7" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="914.6" cy="615.0" r="4" fill="#e11d48"/>
+<title>2019: 0/15 = 0.0% (95% CI 0.0%-20.4%)</title>
+<line x1="956.3" x2="956.3" y1="615.0" y2="216.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="951.3" x2="961.3" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="951.3" x2="961.3" y1="216.0" y2="216.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="956.3" cy="615.0" r="4" fill="#e11d48"/>
+<title>2020: 0/11 = 0.0% (95% CI 0.0%-25.9%)</title>
+<line x1="998.1" x2="998.1" y1="615.0" y2="187.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="993.1" x2="1003.1" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="993.1" x2="1003.1" y1="187.1" y2="187.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="998.1" cy="615.0" r="4" fill="#e11d48"/>
+<title>2021: 0/10 = 0.0% (95% CI 0.0%-27.8%)</title>
+<line x1="1039.8" x2="1039.8" y1="615.0" y2="366.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1034.8" x2="1044.8" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1034.8" x2="1044.8" y1="366.6" y2="366.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="1039.8" cy="615.0" r="4" fill="#e11d48"/>
+<title>2022: 0/20 = 0.0% (95% CI 0.0%-16.1%)</title>
+<line x1="1081.5" x2="1081.5" y1="615.0" y2="187.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1076.5" x2="1086.5" y1="615.0" y2="615.0" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1076.5" x2="1086.5" y1="187.1" y2="187.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="1081.5" cy="615.0" r="4" fill="#e11d48"/>
+<title>2023: 0/10 = 0.0% (95% CI 0.0%-27.8%)</title>
+<line x1="1123.3" x2="1123.3" y1="584.3" y2="-55.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1118.3" x2="1128.3" y1="584.3" y2="584.3" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1118.3" x2="1128.3" y1="-55.6" y2="-55.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="1123.3" cy="443.7" r="4" fill="#e11d48"/>
+<title>2024: 1/9 = 11.1% (95% CI 2.0%-43.5%)</title>
+<line x1="1165.0" x2="1165.0" y1="561.1" y2="59.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1160.0" x2="1170.0" y1="561.1" y2="561.1" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<line x1="1160.0" x2="1170.0" y1="59.6" y2="59.6" stroke="#fb7185" stroke-width="2" opacity="0.7"/>
+<circle cx="1165.0" cy="422.3" r="4" fill="#e11d48"/>
+<title>2025: 2/16 = 12.5% (95% CI 3.5%-36.0%)</title>
+<polyline fill="none" stroke="#e11d48" stroke-width="3" points="80.0,557.9 121.7,518.6 163.5,526.9 205.2,615.0 246.9,615.0 288.7,615.0 330.4,615.0 372.1,615.0 413.8,186.8 455.6,358.1 497.3,229.6 539.0,247.9 580.8,183.3 622.5,533.9 664.2,615.0 706.0,486.5 747.7,468.2 789.4,541.6 831.2,486.5 872.9,615.0 914.6,615.0 956.3,615.0 998.1,615.0 1039.8,615.0 1081.5,615.0 1123.3,443.7 1165.0,422.3"/>
+</svg>

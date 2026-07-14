@@ -32,6 +32,7 @@ canvas { display:block; width:100%; border-radius:22px; border:1px solid var(--l
 .metrics div { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid #e2e8f0; }
 .metrics span { font-variant-numeric:tabular-nums; font-weight:800; }
 .mc-tools { margin:14px 0; display:grid; gap:6px; }
+.mc-tools input { width:100%; }
 .mc-tools button:disabled { opacity:.6; cursor:wait; }
 .mc-results { max-height:420px; overflow:auto; margin-bottom:16px; }
 .mc-results table { width:100%; border-collapse:collapse; font-size:.78rem; }

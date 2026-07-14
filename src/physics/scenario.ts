@@ -101,13 +101,7 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
     const actualDeployAltitudeM = Math.max(deploymentCfg.minDeployAltitudeM, Math.min(deploymentCfg.maxDeployAltitudeM, plannedDeployAltitudeM + jitter));
     const openingLossM = sampleDistribution(deploymentCfg.openingLossM, rng);
     const fullyOpenAltitudeM = Math.max(0, actualDeployAltitudeM - openingLossM);
-    const landingRadiusM = landingAreaRadiusM * Math.sqrt(rng());
-    const landingAngle = rng() * Math.PI * 2;
-    const landingTargetM = {
-      x: spotM.x + Math.cos(landingAngle) * landingRadiusM,
-      y: 0,
-      z: spotM.z + Math.sin(landingAngle) * landingRadiusM,
-    };
+    const landingTargetM = sampleLandingTarget(spotM, landingAreaRadiusM, rng);
     jumpers.push({
       id: `J${i + 1}`,
       groupId: `G${i + 1}`,
@@ -129,4 +123,28 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
     });
   }
   return { seed, exitAltitudeM, aircraftGroundSpeedMps: mph(98), aircraftHeadingDeg: 0, windLayers, spotM, landingAreaRadiusM, jumpers };
+}
+
+function sampleLandingTarget(spotM: Vec3, radiusM: number, rng: () => number): Vec3 {
+  const stdDevM = radiusM / 3;
+  for (let attempt = 0; attempt < 16; attempt++) {
+    const offset = sampleNormalPair(rng, stdDevM);
+    if (Math.hypot(offset.x, offset.z) <= radiusM) {
+      return { x: spotM.x + offset.x, y: 0, z: spotM.z + offset.z };
+    }
+  }
+
+  const fallback = sampleNormalPair(rng, stdDevM);
+  const distance = Math.hypot(fallback.x, fallback.z);
+  if (distance <= radiusM) return { x: spotM.x + fallback.x, y: 0, z: spotM.z + fallback.z };
+  const scale = radiusM / distance;
+  return { x: spotM.x + fallback.x * scale, y: 0, z: spotM.z + fallback.z * scale };
+}
+
+function sampleNormalPair(rng: () => number, stdDev: number): { x: number; z: number } {
+  const u1 = Math.max(rng(), Number.EPSILON);
+  const u2 = rng();
+  const magnitude = Math.sqrt(-2 * Math.log(u1)) * stdDev;
+  const angle = 2 * Math.PI * u2;
+  return { x: Math.cos(angle) * magnitude, z: Math.sin(angle) * magnitude };
 }

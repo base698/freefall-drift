@@ -61,7 +61,8 @@ app.innerHTML = `
         <h2>Run metrics</h2>
         <div id="metrics" class="metrics"></div>
         <div class="mc-tools">
-          <button id="runMonteCarlo">Run 1000 Monte Carlo sims</button>
+          <label>Monte Carlo runs <input id="monteCarloRuns" type="number" min="100" max="10000" step="100" value="2000" /></label>
+          <button id="runMonteCarlo">Run Monte Carlo sims</button>
           <div id="mcStatus" class="small status-line">Monte Carlo not run yet.</div>
         </div>
         <div id="mcResults" class="mc-results"></div>
@@ -101,6 +102,7 @@ const controls = {
   speed: document.querySelector<HTMLInputElement>('#speed')!,
   station: document.querySelector<HTMLInputElement>('#station')!,
   fcst: document.querySelector<HTMLSelectElement>('#fcst')!,
+  monteCarloRuns: document.querySelector<HTMLInputElement>('#monteCarloRuns')!,
 };
 
 let windRows = [...defaultWindRows];
@@ -268,7 +270,9 @@ function runMonteCarloUi() {
   const button = document.querySelector<HTMLButtonElement>('#runMonteCarlo')!;
   button.disabled = true;
   mcResultsEl.innerHTML = '';
-  const totalRuns = 1000;
+  const requestedRuns = Number(controls.monteCarloRuns.value) || 2000;
+  const totalRuns = Math.max(100, Math.min(10000, Math.round(requestedRuns)));
+  controls.monteCarloRuns.value = String(totalRuns);
   const batchSize = 25;
   const summaries: RunSummary[] = [];
   const seedStart = Number(controls.seed.value) || 1;
