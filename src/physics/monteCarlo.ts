@@ -91,6 +91,8 @@ export function distributionsFromSummaries(summaries: RunSummary[]): Record<stri
     fullyOpenAltitudeMaxFt: summaries.map(s => s.fullyOpenAltitudeRangeFt.max),
     fullyOpenAltitudeSpreadFt: summaries.map(s => s.fullyOpenAltitudeRangeFt.max - s.fullyOpenAltitudeRangeFt.min),
     canopyCongestionScore: summaries.map(s => s.canopyCongestionScore),
+    canopyCollisionExposurePairSeconds: summaries.map(s => s.canopyCollisionExposurePairSeconds),
+    estimatedCanopyCollisionRiskPct: summaries.map(s => s.estimatedCanopyCollisionRiskPct),
   };
   return Object.fromEntries(Object.entries(numericStats).map(([key, values]) => [key, summarizeDistribution(values)]));
 }

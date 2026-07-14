@@ -39,6 +39,26 @@ describe('canopy risk metrics', () => {
     expect(close.canopyCongestionScore).toBeGreaterThan(0);
     expect(far.canopyCongestionScore).toBe(0);
   });
+
+  it('estimates low-altitude canopy collision exposure inside 500 ft horizontal spacing', () => {
+    const closeBelowPattern = summarizeRun([
+      snapshot(0, 'canopy', 700, 680, 499),
+      snapshot(2, 'canopy', 500, 480, 499),
+    ]);
+    const farBelowPattern = summarizeRun([
+      snapshot(0, 'canopy', 700, 680, 501),
+      snapshot(2, 'canopy', 500, 480, 501),
+    ]);
+    const closeHigh = summarizeRun([
+      snapshot(0, 'canopy', 1200, 1180, 499),
+      snapshot(2, 'canopy', 1100, 1080, 499),
+    ]);
+
+    expect(closeBelowPattern.canopyCollisionExposurePairSeconds).toBeGreaterThan(0);
+    expect(closeBelowPattern.estimatedCanopyCollisionRiskPct).toBeGreaterThan(0);
+    expect(farBelowPattern.canopyCollisionExposurePairSeconds).toBe(0);
+    expect(closeHigh.canopyCollisionExposurePairSeconds).toBe(0);
+  });
 });
 
 describe('monte carlo summaries', () => {

@@ -70,6 +70,7 @@ app.innerHTML = `
           <li>Target: 3500 ft with ± jitter</li>
           <li>Opening/snivel loss: 300–800 ft</li>
           <li>Canopy vertical descent: 18–35 mph</li>
+          <li>Landing-pattern risk: pair exposure below 1000 ft, within 500 ft horizontally, weighted higher near the ground</li>
           <li>Seeded: same URL/config gives same run</li>
         </ul>
       </aside>
@@ -301,6 +302,8 @@ function renderDistributionTable(distributions: Record<string, DistributionSumma
     fullyOpenAltitudeMaxFt: 'Highest fully-open ft',
     fullyOpenAltitudeSpreadFt: 'Fully-open spread ft',
     canopyCongestionScore: 'Congestion score',
+    canopyCollisionExposurePairSeconds: '500-ft landing exposure sec',
+    estimatedCanopyCollisionRiskPct: 'Est collision risk %',
   };
   const rows = Object.entries(distributions).map(([key, d]) => `
     <tr><th>${labels[key] ?? key}</th><td>${fmt(d.min)}</td><td>${fmt(d.p10)}</td><td>${fmt(d.median)}</td><td>${fmt(d.p90)}</td><td>${fmt(d.p95)}</td><td>${fmt(d.max)}</td><td>${fmt(d.mean)}</td></tr>`).join('');
@@ -326,6 +329,8 @@ function renderMetrics(snapshot: WorldSnapshot, s: RunSummary) {
     <div><strong>Min canopy horizontal sep</strong><span>${s.minHorizontalSeparationFt.toFixed(0)} ft</span></div>
     <div><strong>Fully-open range</strong><span>${s.fullyOpenAltitudeRangeFt.min.toFixed(0)}–${s.fullyOpenAltitudeRangeFt.max.toFixed(0)} ft</span></div>
     <div><strong>Congestion score</strong><span>${s.canopyCongestionScore}</span></div>
+    <div><strong>500-ft landing exposure</strong><span>${s.canopyCollisionExposurePairSeconds.toFixed(1)} pair-s</span></div>
+    <div><strong>Est. collision risk</strong><span>${s.estimatedCanopyCollisionRiskPct.toFixed(3)}%</span></div>
   `;
 }
 
