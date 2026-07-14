@@ -16,8 +16,6 @@ export type RunSummary = {
 const CONGESTION_HORIZONTAL_M = ft(300);
 const CONGESTION_VERTICAL_M = ft(150);
 const LANDING_PATTERN_ALTITUDE_M = ft(1000);
-const COLLISION_EXPOSURE_HORIZONTAL_M = ft(500);
-const COLLISION_EXPOSURE_VERTICAL_M = ft(200);
 const BASE_COLLISION_PROBABILITY_PER_PAIR_SECOND = 0.000002;
 
 export function summarizeRun(snapshots: WorldSnapshot[]): RunSummary {
@@ -49,8 +47,12 @@ export function summarizeRun(snapshots: WorldSnapshot[]): RunSummary {
         const verticalSeparationM = Math.abs(canopies[i].position.y - canopies[k].position.y);
         const verticallyClose = verticalSeparationM < CONGESTION_VERTICAL_M;
         if (h < CONGESTION_HORIZONTAL_M && verticallyClose) canopyCongestionPairSeconds += dtS;
-        const bothInLandingPattern = canopies[i].position.y <= LANDING_PATTERN_ALTITUDE_M && canopies[k].position.y <= LANDING_PATTERN_ALTITUDE_M;
-        const collisionExposure = bothInLandingPattern && h < COLLISION_EXPOSURE_HORIZONTAL_M && verticalSeparationM < COLLISION_EXPOSURE_VERTICAL_M;
+        const bothInLandingPattern =
+          canopies[i].position.y > 0 &&
+          canopies[k].position.y > 0 &&
+          canopies[i].position.y <= LANDING_PATTERN_ALTITUDE_M &&
+          canopies[k].position.y <= LANDING_PATTERN_ALTITUDE_M;
+        const collisionExposure = bothInLandingPattern;
         if (collisionExposure) {
           const lowerAltitudeM = Math.min(canopies[i].position.y, canopies[k].position.y);
           const landingFunnelMultiplier = 1 + 2 * (1 - Math.max(0, lowerAltitudeM) / LANDING_PATTERN_ALTITUDE_M);

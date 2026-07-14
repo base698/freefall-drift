@@ -40,12 +40,12 @@ describe('canopy risk metrics', () => {
     expect(far.canopyCongestionScore).toBe(0);
   });
 
-  it('estimates low-altitude canopy collision exposure inside 500 ft horizontal spacing', () => {
+  it('estimates low-altitude canopy collision exposure from altitude above the landing area only', () => {
     const closeBelowPattern = summarizeRun([
       snapshot(0, 'canopy', 700, 680, 499),
       snapshot(2, 'canopy', 500, 480, 499),
     ]);
-    const farBelowPattern = summarizeRun([
+    const horizontallyFarBelowPattern = summarizeRun([
       snapshot(0, 'canopy', 700, 680, 501),
       snapshot(2, 'canopy', 500, 480, 501),
     ]);
@@ -56,8 +56,8 @@ describe('canopy risk metrics', () => {
 
     expect(closeBelowPattern.canopyCollisionExposurePairSeconds).toBeGreaterThan(0);
     expect(closeBelowPattern.estimatedCanopyCollisionRiskPer10k).toBeGreaterThan(0.01);
-    expect(farBelowPattern.canopyCollisionExposurePairSeconds).toBe(0);
-    expect(farBelowPattern.estimatedCanopyCollisionRiskPer10k).toBe(0);
+    expect(horizontallyFarBelowPattern.canopyCollisionExposurePairSeconds).toBe(closeBelowPattern.canopyCollisionExposurePairSeconds);
+    expect(horizontallyFarBelowPattern.estimatedCanopyCollisionRiskPer10k).toBe(closeBelowPattern.estimatedCanopyCollisionRiskPer10k);
     expect(closeHigh.canopyCollisionExposurePairSeconds).toBe(0);
   });
 });

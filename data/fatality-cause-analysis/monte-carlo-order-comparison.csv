@@ -1,0 +1,7 @@
+wind,jumpers,exitSeparationS,belly_exposure_mean,freefly_exposure_mean,exposure_ratio_freefly_vs_belly,belly_below1000_median,freefly_below1000_median,belly_below500_median,freefly_below500_median,belly_risk_per10k_mean,freefly_risk_per10k_mean,risk_ratio_freefly_vs_belly
+light,8,4,901.073,464.071,0.515,7,4,5,3,18.00443,9.27707,0.515
+light,14,4,2860.221,1344.144,0.47,11,6,7,5,57.0378,26.84597,0.471
+readme_default,8,8,810.468,348.675,0.43,6,4,4,3,16.19557,6.97093,0.43
+readme_default,14,8,1597.074,875.574,0.548,7,5,5,4,31.88957,17.4958,0.549
+strong_upper,8,10,694.047,304.268,0.438,6,3,4,3,13.8712,6.0832,0.439
+strong_upper,14,10,1179.739,694.622,0.589,6,4,4,3,23.56667,13.88247,0.589
