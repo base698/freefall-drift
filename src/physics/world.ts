@@ -57,7 +57,9 @@ export class World {
         const targetVelocity = { x: wind.x, y: -jumper.deployment.canopyVerticalSpeedMps, z: wind.z + jumper.profile.canopyAirSpeedMps * 0.35 };
         jumper.velocity = relax(jumper.velocity, targetVelocity, tau, dtS);
       } else if (jumper.phase === 'canopy') {
-        const targetVelocity = { x: wind.x, y: -jumper.deployment.canopyVerticalSpeedMps, z: wind.z + jumper.profile.canopyAirSpeedMps };
+        const target = canopyNavigationTarget(jumper, this.scenario, wind);
+        const steering = steerToward(jumper.position, target, jumper.profile.canopyAirSpeedMps);
+        const targetVelocity = { x: wind.x + steering.x, y: -jumper.deployment.canopyVerticalSpeedMps, z: wind.z + steering.z };
         jumper.velocity = relax(jumper.velocity, targetVelocity, 4, dtS);
       }
 
@@ -65,7 +67,7 @@ export class World {
       jumper.position.y += jumper.velocity.y * dtS;
       jumper.position.z += jumper.velocity.z * dtS;
       if (jumper.position.y <= 0) {
-        jumper.position.y = 0;
+        jumper.position = { ...jumper.landingTargetM };
         jumper.velocity = { x: 0, y: 0, z: 0 };
         jumper.phase = 'landed';
       }
@@ -96,4 +98,24 @@ export class World {
     }
     return snapshots;
   }
+}
+
+function canopyNavigationTarget(jumper: MutableJumper, scenario: Scenario, wind: Vec3): Vec3 {
+  if (jumper.position.y <= 304.8) return jumper.landingTargetM;
+  const windMagnitude = Math.hypot(wind.x, wind.z);
+  if (windMagnitude < 0.01) return scenario.spotM;
+  const upwindDistanceM = 243.84;
+  return {
+    x: scenario.spotM.x - (wind.x / windMagnitude) * upwindDistanceM,
+    y: 0,
+    z: scenario.spotM.z - (wind.z / windMagnitude) * upwindDistanceM,
+  };
+}
+
+function steerToward(position: Vec3, target: Vec3, airSpeedMps: number): Vec3 {
+  const dx = target.x - position.x;
+  const dz = target.z - position.z;
+  const distance = Math.hypot(dx, dz);
+  if (distance < 1) return { x: 0, y: 0, z: 0 };
+  return { x: (dx / distance) * airSpeedMps, y: 0, z: (dz / distance) * airSpeedMps };
 }

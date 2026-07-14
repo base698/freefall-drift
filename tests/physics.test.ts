@@ -61,6 +61,17 @@ describe('world simulation', () => {
     const b = new World(createScenario({ seed: 99, numJumpers: 6 })).runUntilDone(900, 1 / 15);
     expect(a.at(-1)).toEqual(b.at(-1));
   });
+
+  it('converges landed canopies toward a football-field-sized spot', () => {
+    const scenario = createScenario({ seed: 101, numJumpers: 10, exitSeparationS: 8 });
+    const final = new World(scenario).runUntilDone(900, 1 / 20).at(-1)!;
+    const maxLandingDistanceFt = Math.max(
+      ...final.jumpers.map(j => Math.hypot(j.position.x - scenario.spotM.x, j.position.z - scenario.spotM.z)).map(mToFt),
+    );
+
+    expect(final.jumpers.every(j => j.phase === 'landed')).toBe(true);
+    expect(maxLandingDistanceFt).toBeLessThanOrEqual(240);
+  });
 });
 
 describe('metrics', () => {

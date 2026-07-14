@@ -71,6 +71,8 @@ export function runMonteCarlo(options: MonteCarloOptions): MonteCarloResult {
       exitSeparationS: inferExitSeparation(options.baseScenario),
       exitAltitudeFt: mToFt(options.baseScenario.exitAltitudeM),
       windLayers: options.baseScenario.windLayers,
+      spotOffsetFt: mToFt(options.baseScenario.spotM.z),
+      landingAreaRadiusFt: mToFt(options.baseScenario.landingAreaRadiusM),
     });
     summaries.push(summarizeRun(new World(scenario).runUntilDone(maxSeconds, dtS)));
   }

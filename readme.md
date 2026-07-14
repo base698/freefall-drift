@@ -54,9 +54,18 @@ the abstract. Set your own numbers and decide.
 
 - Per-altitude **wind speed** inputs (0 / 3k / 6k / 9k / 12k ft).
 - **Manifest size**, **exit separation**, and a **fast-fall-first** toggle.
-- A **heat map** of vertical proximity under canopy at ~2500 ft — the
-  congestion signal.
+- A simplified **spot model**: the first group exits near green light, the spot is slightly down jump run, and canopies aim upwind of the spot until 1,000 ft before converging into a football-field-sized landing area.
+- Different throw / horizontal drag by body type: belly fliers slow and reverse toward wind drift faster; freefliers retain aircraft throw longer.
+- A **heat map** of vertical proximity under canopy at ~2500 ft — the congestion signal.
 - Minimum horizontal distances between groups.
+- Monte Carlo distributions for low-altitude landing exposure and estimated canopy-collision risk per 10,000 jumps.
+
+## Data artifacts
+
+- `data/monte-carlo-default-1000.*` — quick default fixture derived from the first 1,000 runs of the larger sample.
+- `data/monte-carlo-default-5000.*` — larger default Monte Carlo sample for analysis.
+- `data/uspa-fatality-summary-2017-2025.csv` — preliminary primary-source fatality-summary table.
+- `docs/parachutist-image-pipeline.md` — process for scraping old Parachutist rendered-page images from HTML5 back issues for OCR/vision extraction.
 
 ## Example winds
 

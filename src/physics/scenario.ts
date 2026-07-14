@@ -41,6 +41,7 @@ export type JumperInitialState = {
   velocity: Vec3;
   profile: JumperProfile;
   deployment: SampledDeployment;
+  landingTargetM: Vec3;
 };
 
 export type Scenario = {
@@ -49,12 +50,14 @@ export type Scenario = {
   aircraftGroundSpeedMps: number;
   aircraftHeadingDeg: number;
   windLayers: WindLayer[];
+  spotM: Vec3;
+  landingAreaRadiusM: number;
   jumpers: JumperInitialState[];
 };
 
 export const profiles = {
-  belly: { name: 'belly', terminalVelocityMps: mph(115), horizontalAirDragTauS: 9, canopyAirSpeedMps: mph(20) },
-  freefly: { name: 'freefly', terminalVelocityMps: mph(180), horizontalAirDragTauS: 5, canopyAirSpeedMps: mph(22) },
+  belly: { name: 'belly', terminalVelocityMps: mph(115), horizontalAirDragTauS: 5, canopyAirSpeedMps: mph(20) },
+  freefly: { name: 'freefly', terminalVelocityMps: mph(180), horizontalAirDragTauS: 10, canopyAirSpeedMps: mph(22) },
 };
 
 export function defaultDeploymentConfig(targetFt: number): DeploymentConfig {
@@ -69,7 +72,7 @@ export function defaultDeploymentConfig(targetFt: number): DeploymentConfig {
   };
 }
 
-export function createScenario(options: Partial<{ seed: number; numJumpers: number; groupSwitch: number; fastFallFirst: boolean; exitSeparationS: number; exitAltitudeFt: number; windLayers: WindLayer[] }> = {}): Scenario {
+export function createScenario(options: Partial<{ seed: number; numJumpers: number; groupSwitch: number; fastFallFirst: boolean; exitSeparationS: number; exitAltitudeFt: number; windLayers: WindLayer[]; spotOffsetFt: number; landingAreaRadiusFt: number }> = {}): Scenario {
   const seed = options.seed ?? 1;
   const rng = createSeededRng(seed);
   const numJumpers = options.numJumpers ?? 8;
@@ -77,6 +80,8 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
   const fastFallFirst = options.fastFallFirst ?? false;
   const exitSeparationS = options.exitSeparationS ?? 8;
   const exitAltitudeM = ft(options.exitAltitudeFt ?? 13000);
+  const spotM = { x: 0, y: 0, z: ft(options.spotOffsetFt ?? 250) };
+  const landingAreaRadiusM = ft(options.landingAreaRadiusFt ?? 200);
   const windLayers: WindLayer[] = options.windLayers ?? [
     { altitudeM: ft(0), speedMps: mph(5), directionDeg: 180 },
     { altitudeM: ft(3000), speedMps: mph(15), directionDeg: 180 },
@@ -96,6 +101,13 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
     const actualDeployAltitudeM = Math.max(deploymentCfg.minDeployAltitudeM, Math.min(deploymentCfg.maxDeployAltitudeM, plannedDeployAltitudeM + jitter));
     const openingLossM = sampleDistribution(deploymentCfg.openingLossM, rng);
     const fullyOpenAltitudeM = Math.max(0, actualDeployAltitudeM - openingLossM);
+    const landingRadiusM = landingAreaRadiusM * Math.sqrt(rng());
+    const landingAngle = rng() * Math.PI * 2;
+    const landingTargetM = {
+      x: spotM.x + Math.cos(landingAngle) * landingRadiusM,
+      y: 0,
+      z: spotM.z + Math.sin(landingAngle) * landingRadiusM,
+    };
     jumpers.push({
       id: `J${i + 1}`,
       groupId: `G${i + 1}`,
@@ -113,7 +125,8 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
         minDeployAltitudeM: deploymentCfg.minDeployAltitudeM,
         maxDeployAltitudeM: deploymentCfg.maxDeployAltitudeM,
       },
+      landingTargetM,
     });
   }
-  return { seed, exitAltitudeM, aircraftGroundSpeedMps: mph(98), aircraftHeadingDeg: 0, windLayers, jumpers };
+  return { seed, exitAltitudeM, aircraftGroundSpeedMps: mph(98), aircraftHeadingDeg: 0, windLayers, spotM, landingAreaRadiusM, jumpers };
 }
