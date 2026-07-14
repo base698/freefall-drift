@@ -32,7 +32,7 @@ describe('wind field', () => {
       { altitudeM: ft(0), speedMps: mph(0), directionDeg: 90 },
       { altitudeM: ft(10000), speedMps: mph(20), directionDeg: 90 },
     ], ft(5000));
-    expect(wind.x).toBeCloseTo(mph(10), 4);
+    expect(wind.x).toBeCloseTo(-mph(10), 4);
     expect(Math.abs(wind.z)).toBeLessThan(1e-8);
   });
 });

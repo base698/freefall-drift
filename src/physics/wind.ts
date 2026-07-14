@@ -3,12 +3,12 @@ import { headingVector, lerp, type Vec3 } from './vector';
 export type WindLayer = {
   altitudeM: number;
   speedMps: number;
-  /** Direction the wind blows toward. 0 = +z, 90 = +x. */
+  /** Direction the wind blows from, aviation-style. 0 = from +z/north, 90 = from +x/east. */
   directionDeg: number;
 };
 
 function layerVector(layer: WindLayer): Vec3 {
-  return headingVector(layer.directionDeg, layer.speedMps);
+  return headingVector((layer.directionDeg + 180) % 360, layer.speedMps);
 }
 
 export function windAtAltitude(layers: WindLayer[], altitudeM: number): Vec3 {

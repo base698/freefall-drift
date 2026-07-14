@@ -44,7 +44,7 @@ app.innerHTML = `
       <div class="wind-heading">
         <div>
           <h2>Upper-level winds</h2>
-          <p>Direction is the direction the wind blows <strong>toward</strong>. Defaults mirror the README sample: 0:5 · 3000:15 · 6000:20 · 9000:25 · 12000:30 mph.</p>
+          <p>Direction is aviation-style wind direction <strong>from</strong> degrees. Defaults mirror the README sample: 0:5 · 3000:15 · 6000:20 · 9000:25 · 12000:30 mph.</p>
         </div>
         <div class="forecast-tools">
           <label>Station <input id="station" value="RDU" maxlength="4" /></label>
@@ -71,7 +71,7 @@ app.innerHTML = `
           <li>Target: 3500 ft with ± jitter</li>
           <li>Opening/snivel loss: 300–800 ft</li>
           <li>Canopy vertical descent: 18–35 mph</li>
-          <li>Landing-pattern risk: pair exposure below 1000 ft, within 500 ft horizontally, weighted higher near the ground</li>
+          <li>Landing-pattern risk: pair exposure below 1000 ft AGL, weighted higher near the ground</li>
           <li>Seeded: same URL/config gives same run</li>
         </ul>
       </aside>
@@ -119,7 +119,7 @@ function renderWindRows() {
   windRowsEl.innerHTML = windRows.map((row, index) => `
     <div class="wind-row" data-index="${index}">
       <strong>${row.altitudeFt.toLocaleString()} ft</strong>
-      <label>toward ° <input data-wind="direction" type="number" min="0" max="360" step="10" value="${row.directionDeg}" /></label>
+      <label>from ° <input data-wind="direction" type="number" min="0" max="360" step="10" value="${row.directionDeg}" /></label>
       <label>mph <input data-wind="speed" type="number" min="0" max="120" step="1" value="${row.speedMph.toFixed(0)}" /></label>
     </div>`).join('');
   windRowsEl.querySelectorAll<HTMLInputElement>('input[data-wind]').forEach(input => {
@@ -306,7 +306,7 @@ function renderDistributionTable(distributions: Record<string, DistributionSumma
     fullyOpenAltitudeMaxFt: 'Highest fully-open ft',
     fullyOpenAltitudeSpreadFt: 'Fully-open spread ft',
     canopyCongestionScore: 'Congestion score',
-    canopyCollisionExposurePairSeconds: '500-ft landing exposure sec',
+    canopyCollisionExposurePairSeconds: 'Landing-pattern exposure sec',
     estimatedCanopyCollisionRiskPer10k: 'Est collisions / 10k jumps',
   };
   const rows = Object.entries(distributions).map(([key, d]) => `
@@ -333,7 +333,7 @@ function renderMetrics(snapshot: WorldSnapshot, s: RunSummary) {
     <div><strong>Min canopy horizontal sep</strong><span>${s.minHorizontalSeparationFt.toFixed(0)} ft</span></div>
     <div><strong>Fully-open range</strong><span>${s.fullyOpenAltitudeRangeFt.min.toFixed(0)}–${s.fullyOpenAltitudeRangeFt.max.toFixed(0)} ft</span></div>
     <div><strong>Congestion score</strong><span>${s.canopyCongestionScore}</span></div>
-    <div><strong>500-ft landing exposure</strong><span>${s.canopyCollisionExposurePairSeconds.toFixed(1)} pair-s</span></div>
+    <div><strong>Landing-pattern exposure</strong><span>${s.canopyCollisionExposurePairSeconds.toFixed(1)} pair-s</span></div>
     <div><strong>Est. collision risk</strong><span>${s.estimatedCanopyCollisionRiskPer10k.toFixed(2)} / 10k jumps</span></div>
   `;
 }

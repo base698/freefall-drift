@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { fdCodeToWind, parseFdWindTempText, windsAloftUrl } from '../src/physics/windsAloft';
+import { fdCodeToWind, parseFdWindTempText, windsAloftUrl, layersToWindLayers } from '../src/physics/windsAloft';
+import { windAtAltitude } from '../src/physics/wind';
+import { createScenario } from '../src/physics/scenario';
+import { ft, mph } from '../src/physics/units';
 
 describe('FD winds aloft parser', () => {
   it('decodes calm and direction/speed groups', () => {
@@ -25,5 +28,28 @@ RDU 0817 1020+14 1209+10 1106+05 9900-06 2410-16 271932 263243 254356
     expect(windsAloftUrl('mia', '06')).toContain('region=mia');
     expect(windsAloftUrl('mia', '06')).toContain('level=low');
     expect(windsAloftUrl('mia', '06')).toContain('fcst=06');
+  });
+
+  it('treats forecast directions as wind-from and interpolates drift vectors by altitude', () => {
+    const layers = layersToWindLayers([
+      { altitudeFt: 9000, directionDeg: 120, speedMph: 20 },
+      { altitudeFt: 12000, directionDeg: 80, speedMph: 20 },
+    ]);
+    const wind = windAtAltitude(layers, ft(10500));
+    const towardDeg = ((Math.atan2(wind.x, wind.z) * 180 / Math.PI) + 360) % 360;
+
+    expect(towardDeg).toBeCloseTo(280, 0);
+    expect(Math.hypot(wind.x, wind.z) / mph(1)).toBeCloseTo(18.8, 1);
+  });
+
+  it('aligns jump run into the effective upper-level wind', () => {
+    const scenario = createScenario({
+      windLayers: layersToWindLayers([
+        { altitudeFt: 9000, directionDeg: 120, speedMph: 20 },
+        { altitudeFt: 12000, directionDeg: 80, speedMph: 20 },
+      ]),
+    });
+
+    expect(scenario.aircraftHeadingDeg).toBeCloseTo(100, 0);
   });
 });

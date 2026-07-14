@@ -1,6 +1,6 @@
 import { ft, mph } from './units';
 import { createSeededRng, sampleDistribution, type DistributionConfig } from './random';
-import type { Vec3 } from './vector';
+import { headingVector, type Vec3 } from './vector';
 import type { WindLayer } from './wind';
 
 export type Phase = 'inAircraft' | 'freefall' | 'deploying' | 'canopy' | 'landed';
@@ -89,6 +89,7 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
     { altitudeM: ft(9000), speedMps: mph(25), directionDeg: 180 },
     { altitudeM: ft(12000), speedMps: mph(30), directionDeg: 180 },
   ];
+  const aircraftHeadingDeg = jumpRunHeadingIntoWind(windLayers);
   const jumpers: JumperInitialState[] = [];
   for (let i = 0; i < numJumpers; i++) {
     const firstBlock = i < groupSwitch;
@@ -122,7 +123,16 @@ export function createScenario(options: Partial<{ seed: number; numJumpers: numb
       landingTargetM,
     });
   }
-  return { seed, exitAltitudeM, aircraftGroundSpeedMps: mph(98), aircraftHeadingDeg: 0, windLayers, spotM, landingAreaRadiusM, jumpers };
+  return { seed, exitAltitudeM, aircraftGroundSpeedMps: mph(98), aircraftHeadingDeg, windLayers, spotM, landingAreaRadiusM, jumpers };
+}
+
+function jumpRunHeadingIntoWind(windLayers: WindLayer[]): number {
+  const drift = windLayers.reduce((sum, layer) => {
+    const vector = headingVector((layer.directionDeg + 180) % 360, layer.speedMps);
+    return { x: sum.x + vector.x, y: 0, z: sum.z + vector.z };
+  }, { x: 0, y: 0, z: 0 });
+  if (Math.hypot(drift.x, drift.z) < 0.001) return 0;
+  return ((Math.atan2(-drift.x, -drift.z) * 180) / Math.PI + 360) % 360;
 }
 
 function sampleLandingTarget(spotM: Vec3, radiusM: number, rng: () => number): Vec3 {

@@ -52,7 +52,7 @@ the abstract. Set your own numbers and decide.
 
 ## What it shows
 
-- Per-altitude **wind speed** inputs (0 / 3k / 6k / 9k / 12k ft).
+- Per-altitude **wind-from direction and speed** inputs (0 / 3k / 6k / 9k / 12k ft), using aviation-style directions and vector interpolation between layers.
 - **Manifest size**, **exit separation**, and a **fast-fall-first** toggle.
 - A simplified **spot model**: the first group exits near green light, the spot is slightly down jump run, and canopies aim upwind of the spot until 1,000 ft before converging into a football-field-sized landing area.
 - Different throw / horizontal drag by body type: belly fliers slow and reverse toward wind drift faster; freefliers retain aircraft throw longer.
@@ -88,31 +88,35 @@ explicit risk-assessment sandbox:
   football-field-sized landing area instead of pretending every jumper lands on
   the exact same dot.
 
-### The 500-ft landing exposure metric
+### The landing-pattern exposure metric
 
-The most important new risk-assessment metric is **500-ft landing exposure**.
+The most important new risk-assessment metric is **landing-pattern exposure**.
 Hermes introduced this metric during the rewrite as an original heuristic for
 the canopy-congestion question; it was not part of the previous simulator.
 
-The metric asks: once canopies are in the landing pattern, how much time do
-pairs of jumpers spend close enough to matter?
+The metric asks: once canopies are in the landing pattern, how much open-canopy
+pair time exists near the ground?
 
 For every simulation timestep, every pair of open canopies contributes exposure
-when all of these are true:
+when both canopies are below **1,000 ft AGL** and above the ground.
 
-- both canopies are below **1,000 ft AGL**,
-- projected horizontal separation is under **500 ft**,
-- vertical separation is under **200 ft**.
+It intentionally does **not** use modeled horizontal separation. The operational
+assumption is that jumpers farther out fly toward the landing area while jumpers
+already close hold there until landing, so horizontal separation should collapse
+as altitude decreases but is governed by canopy-pilot behavior that this model
+cannot infer. The exposure score is therefore driven by vertical distance from
+the ground rather than by simulated horizontal spacing.
 
-The score is measured in **weighted pair-seconds**. One close pair for ten
-seconds is roughly ten pair-seconds; five close pairs for two seconds is also
-roughly ten pair-seconds. Exposure is weighted higher as the lower canopy gets
-closer to the ground, because the landing pattern compresses options and makes
-avoidance harder near touchdown.
+The score is measured in **weighted pair-seconds**. One pair in the landing
+pattern for ten seconds is roughly ten pair-seconds; five pairs for two seconds
+is also roughly ten pair-seconds. Exposure is weighted higher as the lower
+canopy gets closer to the ground, because the landing pattern compresses
+options and makes avoidance harder near touchdown.
 
 This is more useful than simply counting the maximum number of canopies below
 500 ft. A peak count says “how crowded did it get at one instant?” Landing
-exposure says “how many close conflicts existed, for how long, and how low?”
+exposure says “how many landing-pattern pair overlaps existed, for how long,
+and how low?”
 That makes it a better relative risk signal when comparing exit order, exit
 separation, upper winds, spot, or landing-area assumptions.
 
