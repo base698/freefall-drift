@@ -5,6 +5,7 @@ import { summarizeRun, type RunSummary } from './physics/metrics';
 import { ft, mToFt, mph } from './physics/units';
 import { horizontalDistance } from './physics/vector';
 import { layersToWindLayers, type WindsAloftLayer } from './physics/windsAloft';
+import { runMonteCarlo, distributionsFromSummaries, type DistributionSummary } from './physics/monteCarlo';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const defaultWindRows: WindsAloftLayer[] = [
@@ -59,6 +60,11 @@ app.innerHTML = `
       <aside class="panel">
         <h2>Run metrics</h2>
         <div id="metrics" class="metrics"></div>
+        <div class="mc-tools">
+          <button id="runMonteCarlo">Run 1000 Monte Carlo sims</button>
+          <div id="mcStatus" class="small status-line">Monte Carlo not run yet.</div>
+        </div>
+        <div id="mcResults" class="mc-results"></div>
         <h2>Deployment model</h2>
         <ul class="small">
           <li>Target: 3500 ft with ± jitter</li>
@@ -81,6 +87,8 @@ document.querySelectorAll<HTMLAnchorElement>('[data-dashboard-link]').forEach(li
 });
 const ctx = canvas.getContext('2d')!;
 const metricsEl = document.querySelector<HTMLDivElement>('#metrics')!;
+const mcResultsEl = document.querySelector<HTMLDivElement>('#mcResults')!;
+const mcStatusEl = document.querySelector<HTMLDivElement>('#mcStatus')!;
 const windRowsEl = document.querySelector<HTMLDivElement>('#windRows')!;
 const forecastStatus = document.querySelector<HTMLDivElement>('#forecastStatus')!;
 const controls = {
@@ -95,6 +103,7 @@ const controls = {
 };
 
 let windRows = [...defaultWindRows];
+let currentScenario = createScenario({ windLayers: layersToWindLayers(windRows) });
 let world: World;
 let snapshots: WorldSnapshot[] = [];
 let summary: RunSummary;
@@ -132,6 +141,7 @@ function reset() {
     fastFallFirst: controls.fastFallFirst.checked,
     windLayers: layersToWindLayers(windRows),
   });
+  currentScenario = scenario;
   world = new World(scenario);
   snapshots = [world.snapshot()];
   summary = summarizeRun(snapshots);
@@ -253,6 +263,54 @@ function drawDeploying(id: string) { ctx.strokeStyle = '#f59e0b'; ctx.lineWidth 
 function drawCanopy(id: string) { ctx.fillStyle = '#2563eb'; ctx.beginPath(); ctx.ellipse(0, -6, 18, 9, 0, Math.PI, 0); ctx.fill(); ctx.strokeStyle = '#1e3a8a'; ctx.beginPath(); ctx.moveTo(-12, 0); ctx.lineTo(0, 10); ctx.lineTo(12, 0); ctx.stroke(); ctx.fillStyle = '#111827'; ctx.fillText(id.replace('J', ''), 20, 2); }
 function drawLanded(id: string) { ctx.fillStyle = '#334155'; ctx.fillRect(-6, -4, 12, 8); ctx.fillText(id.replace('J', ''), 8, 2); }
 
+function runMonteCarloUi() {
+  const button = document.querySelector<HTMLButtonElement>('#runMonteCarlo')!;
+  button.disabled = true;
+  mcResultsEl.innerHTML = '';
+  const totalRuns = 1000;
+  const batchSize = 25;
+  const summaries: RunSummary[] = [];
+  const seedStart = Number(controls.seed.value) || 1;
+  const started = performance.now();
+  mcStatusEl.textContent = `Running ${totalRuns} simulations… 0/${totalRuns}`;
+
+  const runBatch = () => {
+    const remaining = totalRuns - summaries.length;
+    const runs = Math.min(batchSize, remaining);
+    const batch = runMonteCarlo({ baseScenario: currentScenario, runs, seedStart: seedStart + summaries.length, dtS: 1 / 10 });
+    summaries.push(...batch.summaries);
+    mcStatusEl.textContent = `Running ${totalRuns} simulations… ${summaries.length}/${totalRuns}`;
+    if (summaries.length < totalRuns) {
+      setTimeout(runBatch, 0);
+      return;
+    }
+    const elapsed = ((performance.now() - started) / 1000).toFixed(1);
+    mcStatusEl.textContent = `${totalRuns} simulations complete in ${elapsed}s. Congestion score = close canopy pair-seconds.`;
+    mcResultsEl.innerHTML = renderDistributionTable(distributionsFromSummaries(summaries));
+    button.disabled = false;
+  };
+  setTimeout(runBatch, 20);
+}
+
+function renderDistributionTable(distributions: Record<string, DistributionSummary>): string {
+  const labels: Record<string, string> = {
+    maxOpenCanopiesBelow1000Ft: 'Max canopies <1000 ft',
+    maxOpenCanopiesBelow500Ft: 'Max canopies <500 ft',
+    minHorizontalSeparationFt: 'Min horizontal sep ft',
+    fullyOpenAltitudeMinFt: 'Lowest fully-open ft',
+    fullyOpenAltitudeMaxFt: 'Highest fully-open ft',
+    fullyOpenAltitudeSpreadFt: 'Fully-open spread ft',
+    canopyCongestionScore: 'Congestion score',
+  };
+  const rows = Object.entries(distributions).map(([key, d]) => `
+    <tr><th>${labels[key] ?? key}</th><td>${fmt(d.min)}</td><td>${fmt(d.p10)}</td><td>${fmt(d.median)}</td><td>${fmt(d.p90)}</td><td>${fmt(d.p95)}</td><td>${fmt(d.max)}</td><td>${fmt(d.mean)}</td></tr>`).join('');
+  return `<table><thead><tr><th>Stat</th><th>min</th><th>p10</th><th>median</th><th>p90</th><th>p95</th><th>max</th><th>mean</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function fmt(value: number): string {
+  return Math.abs(value) >= 10 ? value.toFixed(0) : value.toFixed(1);
+}
+
 function renderMetrics(snapshot: WorldSnapshot, s: RunSummary) {
   const phases = snapshot.jumpers.reduce<Record<string, number>>((acc, j) => { acc[j.phase] = (acc[j.phase] || 0) + 1; return acc; }, {});
   const strongestWind = [...windRows].sort((a, b) => b.speedMph - a.speedMph)[0];
@@ -264,6 +322,7 @@ function renderMetrics(snapshot: WorldSnapshot, s: RunSummary) {
     <div><strong>Landed</strong><span>${phases.landed || 0}</span></div>
     <div><strong>Strongest wind</strong><span>${strongestWind.altitudeFt.toLocaleString()} ft @ ${strongestWind.speedMph.toFixed(0)} mph</span></div>
     <div><strong>Max canopies &lt;1000 ft</strong><span>${s.maxOpenCanopiesBelow1000Ft}</span></div>
+    <div><strong>Max canopies &lt;500 ft</strong><span>${s.maxOpenCanopiesBelow500Ft}</span></div>
     <div><strong>Min canopy horizontal sep</strong><span>${s.minHorizontalSeparationFt.toFixed(0)} ft</span></div>
     <div><strong>Fully-open range</strong><span>${s.fullyOpenAltitudeRangeFt.min.toFixed(0)}–${s.fullyOpenAltitudeRangeFt.max.toFixed(0)} ft</span></div>
     <div><strong>Congestion score</strong><span>${s.canopyCongestionScore}</span></div>
@@ -274,6 +333,7 @@ for (const input of [controls.seed, controls.numJumpers, controls.groupSwitch, c
 document.querySelector<HTMLButtonElement>('#reset')!.addEventListener('click', reset);
 document.querySelector<HTMLButtonElement>('#pause')!.addEventListener('click', (event) => { paused = !paused; (event.currentTarget as HTMLButtonElement).textContent = paused ? 'Resume' : 'Pause'; });
 document.querySelector<HTMLButtonElement>('#loadForecast')!.addEventListener('click', loadForecast);
+document.querySelector<HTMLButtonElement>('#runMonteCarlo')!.addEventListener('click', runMonteCarloUi);
 
 renderWindRows();
 reset();

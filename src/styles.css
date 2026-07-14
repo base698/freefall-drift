@@ -31,6 +31,13 @@ canvas { display:block; width:100%; border-radius:22px; border:1px solid var(--l
 .metrics { display:grid; gap:8px; }
 .metrics div { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid #e2e8f0; }
 .metrics span { font-variant-numeric:tabular-nums; font-weight:800; }
+.mc-tools { margin:14px 0; display:grid; gap:6px; }
+.mc-tools button:disabled { opacity:.6; cursor:wait; }
+.mc-results { max-height:420px; overflow:auto; margin-bottom:16px; }
+.mc-results table { width:100%; border-collapse:collapse; font-size:.78rem; }
+.mc-results th, .mc-results td { border-bottom:1px solid #e2e8f0; padding:6px 5px; text-align:right; font-variant-numeric:tabular-nums; }
+.mc-results th:first-child { text-align:left; min-width:130px; }
+.mc-results thead th { position:sticky; top:0; background:#fff; }
 .small { color:var(--muted); padding-left:20px; line-height:1.55; }
 code { background:#e2e8f0; border-radius:6px; padding:1px 5px; }
 @media (max-width: 900px) { .hero, .sim-grid, .wind-heading { grid-template-columns:1fr; } }
