@@ -11,13 +11,22 @@ h2 { margin:0 0 12px; }
 p { color:var(--muted); line-height:1.55; }
 .hero-card, .panel { border:1px solid var(--line); background:var(--panel); border-radius:20px; padding:18px; box-shadow:0 24px 60px -36px rgba(20,16,31,.55); backdrop-filter:blur(10px); }
 main { max-width:1220px; margin:auto; padding:0 24px 40px; }
+.config-panel { margin-bottom:18px; }
+.config-heading { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:start; margin-bottom:14px; }
+.config-heading p { margin:0; }
 .controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; align-items:end; }
-label { display:grid; gap:6px; color:var(--muted); font-weight:700; font-size:.88rem; }
+label { display:grid; gap:6px; color:var(--muted); font-weight:700; font-size:.88rem; min-width:0; }
 label.check { display:flex; align-items:center; gap:8px; padding-bottom:10px; }
-input, button { border:1px solid var(--line); background:white; color:var(--ink); border-radius:12px; padding:10px 12px; font:inherit; }
-input[type=checkbox] { width:20px; height:20px; }
+input, button, select { border:1px solid var(--line); background:white; color:var(--ink); border-radius:12px; padding:10px 12px; font:inherit; max-width:100%; }
+input:not([type=checkbox]), select { width:100%; }
+input[type=checkbox] { width:20px; height:20px; flex:0 0 auto; }
 button { background:var(--accent); color:white; border-color:var(--accent); font-weight:800; cursor:pointer; box-shadow:0 10px 28px -12px var(--accent); }
 .buttons { display:flex; gap:10px; flex-wrap:wrap; }
+.run-buttons { justify-content:flex-end; }
+.wind-config { margin-top:16px; border-top:1px solid var(--line); padding-top:14px; }
+.wind-summary { display:flex; justify-content:space-between; gap:12px; align-items:end; color:var(--muted); margin-bottom:12px; }
+.wind-summary strong { color:var(--ink); align-self:center; }
+.wind-summary .wind-preset { width:min(320px, 45%); }
 .wind-panel { margin:18px 0; }
 .wind-heading { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:end; }
 .forecast-tools { display:flex; gap:10px; align-items:end; flex-wrap:wrap; }
@@ -42,4 +51,20 @@ canvas { display:block; width:100%; border-radius:22px; border:1px solid var(--l
 .mc-results thead th { position:sticky; top:0; background:#fff; }
 .small { color:var(--muted); padding-left:20px; line-height:1.55; }
 code { background:#EFE9FB; border-radius:6px; padding:1px 5px; font-family:'JetBrains Mono',monospace; }
-@media (max-width: 900px) { .hero, .sim-grid, .wind-heading { grid-template-columns:1fr; } }
+@media (max-width: 900px) { .hero, .sim-grid, .wind-heading, .config-heading { grid-template-columns:1fr; } }
+@media (max-width: 640px) {
+  .hero { padding:24px 14px 12px; }
+  main { padding:0 14px 28px; }
+  .hero-card, .panel { padding:14px; border-radius:16px; }
+  .config-heading { gap:10px; }
+  .config-heading p, .hero-card, .wind-summary span, .wind-advanced, .desktop-notes { display:none; }
+  .controls { grid-template-columns:1fr 1fr; gap:10px; }
+  .controls label:not(.wind-preset) { display:none; }
+  .wind-preset { grid-column:1 / -1; }
+  .run-buttons { position:sticky; top:0; z-index:5; justify-content:stretch; padding:8px 0; background:linear-gradient(180deg,#FFFFFFF2,#FFFFFFCC); backdrop-filter:blur(8px); }
+  .run-buttons button { flex:1; min-height:46px; }
+  .wind-config { margin-top:10px; padding-top:10px; }
+  .wind-summary { display:flex; align-items:end; margin-bottom:4px; }
+  .wind-summary .wind-preset { width:62%; }
+  .small { padding-left:0; }
+}

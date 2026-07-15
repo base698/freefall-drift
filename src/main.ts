@@ -16,6 +16,53 @@ const defaultWindRows: WindsAloftLayer[] = [
   { altitudeFt: 12000, directionDeg: 180, speedMph: 30 },
 ];
 
+const windPresets: Record<string, { label: string; rows: WindsAloftLayer[] }> = {
+  readme: {
+    label: 'README southerly gradient',
+    rows: defaultWindRows,
+  },
+  calm: {
+    label: 'Calm / no drift',
+    rows: [
+      { altitudeFt: 0, directionDeg: 0, speedMph: 0 },
+      { altitudeFt: 3000, directionDeg: 0, speedMph: 0 },
+      { altitudeFt: 6000, directionDeg: 0, speedMph: 0 },
+      { altitudeFt: 9000, directionDeg: 0, speedMph: 0 },
+      { altitudeFt: 12000, directionDeg: 0, speedMph: 0 },
+    ],
+  },
+  light: {
+    label: 'Light mixed winds',
+    rows: [
+      { altitudeFt: 0, directionDeg: 210, speedMph: 4 },
+      { altitudeFt: 3000, directionDeg: 220, speedMph: 8 },
+      { altitudeFt: 6000, directionDeg: 240, speedMph: 12 },
+      { altitudeFt: 9000, directionDeg: 260, speedMph: 16 },
+      { altitudeFt: 12000, directionDeg: 280, speedMph: 20 },
+    ],
+  },
+  strongWest: {
+    label: 'Strong west winds',
+    rows: [
+      { altitudeFt: 0, directionDeg: 270, speedMph: 10 },
+      { altitudeFt: 3000, directionDeg: 270, speedMph: 22 },
+      { altitudeFt: 6000, directionDeg: 270, speedMph: 34 },
+      { altitudeFt: 9000, directionDeg: 270, speedMph: 46 },
+      { altitudeFt: 12000, directionDeg: 270, speedMph: 58 },
+    ],
+  },
+  crosswind: {
+    label: 'Crosswind shear',
+    rows: [
+      { altitudeFt: 0, directionDeg: 160, speedMph: 6 },
+      { altitudeFt: 3000, directionDeg: 190, speedMph: 14 },
+      { altitudeFt: 6000, directionDeg: 230, speedMph: 24 },
+      { altitudeFt: 9000, directionDeg: 280, speedMph: 32 },
+      { altitudeFt: 12000, directionDeg: 320, speedMph: 40 },
+    ],
+  },
+};
+
 app.innerHTML = `
   <header class="hero">
     <div>
@@ -28,32 +75,40 @@ app.innerHTML = `
     </div>
   </header>
   <main>
-    <section class="panel controls">
-      <label>Seed <input id="seed" type="number" value="42" /></label>
-      <label>Manifest <input id="numJumpers" type="number" min="2" max="24" value="10" /></label>
-      <label>Group switch <input id="groupSwitch" type="number" min="1" max="24" value="5" /></label>
-      <label>Exit separation (s) <input id="exitSeparationS" type="number" min="2" max="30" value="8" /></label>
-      <label class="check"><input id="fastFallFirst" type="checkbox" /> Freefly / fast-fall first</label>
-      <label>Playback speed <input id="speed" type="range" min="0.25" max="12" step="0.25" value="5" /></label>
-      <div class="buttons">
-        <button id="reset">Reset run</button>
-        <button id="pause">Pause</button>
-      </div>
-    </section>
-    <section class="wind-panel panel">
-      <div class="wind-heading">
+    <section class="panel config-panel">
+      <div class="config-heading">
         <div>
-          <h2>Upper-level winds</h2>
-          <p>Direction is aviation-style wind direction <strong>from</strong> degrees. Defaults mirror the README sample: 0:5 · 3000:15 · 6000:20 · 9000:25 · 12000:30 mph.</p>
+          <h2>Config setup</h2>
+          <p>Pick a wind preset for quick mobile use, or tune the full scenario and wind table on desktop.</p>
         </div>
-        <div class="forecast-tools">
-          <label>Station <input id="station" value="RDU" maxlength="4" /></label>
-          <label>Forecast <select id="fcst"><option>06</option><option>12</option><option>24</option></select></label>
-          <button id="loadForecast">Load RDU winds aloft</button>
+        <div class="buttons run-buttons">
+          <button id="reset">Reset run</button>
+          <button id="pause">Pause</button>
         </div>
       </div>
-      <div id="windRows" class="wind-rows"></div>
-      <div id="forecastStatus" class="small status-line">Manual winds loaded.</div>
+      <div class="controls">
+        <label>Seed <input id="seed" type="number" value="42" /></label>
+        <label>Manifest <input id="numJumpers" type="number" min="2" max="24" value="10" /></label>
+        <label>Group switch <input id="groupSwitch" type="number" min="1" max="24" value="5" /></label>
+        <label>Exit separation (s) <input id="exitSeparationS" type="number" min="2" max="30" value="8" /></label>
+        <label class="check"><input id="fastFallFirst" type="checkbox" /> Freefly / fast-fall first</label>
+        <label>Playback speed <input id="speed" type="range" min="0.25" max="12" step="0.25" value="5" /></label>
+      </div>
+      <div class="wind-config">
+        <div class="wind-summary">
+          <strong>Upper-level winds</strong>
+          <label class="wind-preset">Wind preset <select id="windPreset">${Object.entries(windPresets).map(([key, preset]) => `<option value="${key}">${preset.label}</option>`).join('')}</select></label>
+        </div>
+        <div class="wind-advanced">
+          <div class="forecast-tools">
+            <label>Station <input id="station" value="RDU" maxlength="4" /></label>
+            <label>Forecast <select id="fcst"><option>06</option><option>12</option><option>24</option></select></label>
+            <button id="loadForecast">Load RDU winds aloft</button>
+          </div>
+          <div id="windRows" class="wind-rows"></div>
+        </div>
+        <div id="forecastStatus" class="small status-line">Manual winds loaded.</div>
+      </div>
     </section>
     <section class="sim-grid">
       <canvas id="scene" width="920" height="620" aria-label="Simulation canvas"></canvas>
@@ -66,6 +121,7 @@ app.innerHTML = `
           <div id="mcStatus" class="small status-line">Monte Carlo not run yet.</div>
         </div>
         <div id="mcResults" class="mc-results"></div>
+        <div class="desktop-notes">
         <h2>Deployment model</h2>
         <ul class="small">
           <li>Target: 3500 ft with ± jitter</li>
@@ -74,9 +130,10 @@ app.innerHTML = `
           <li>Landing-pattern risk: pair exposure below 1000 ft AGL, weighted higher near the ground</li>
           <li>Seeded: same URL/config gives same run</li>
         </ul>
+        </div>
       </aside>
     </section>
-    <section class="panel">
+    <section class="panel desktop-notes">
       <h2>What to look for</h2>
       <p>The original app argued that exit order should be evaluated by <em>canopy congestion</em>, not just freefall horizontal separation. This version makes the wind dependence explicit: small changes in upper-level winds can dominate opening locations and stacked-canopy timing.</p>
     </section>
@@ -103,6 +160,7 @@ const controls = {
   station: document.querySelector<HTMLInputElement>('#station')!,
   fcst: document.querySelector<HTMLSelectElement>('#fcst')!,
   monteCarloRuns: document.querySelector<HTMLInputElement>('#monteCarloRuns')!,
+  windPreset: document.querySelector<HTMLSelectElement>('#windPreset')!,
 };
 
 let windRows = [...defaultWindRows];
@@ -114,6 +172,10 @@ let paused = false;
 let last = performance.now();
 let accumulator = 0;
 const fixedDt = 1 / 30;
+
+function cloneRows(rows: WindsAloftLayer[]): WindsAloftLayer[] {
+  return rows.map(row => ({ ...row }));
+}
 
 function renderWindRows() {
   windRowsEl.innerHTML = windRows.map((row, index) => `
@@ -132,6 +194,15 @@ function renderWindRows() {
       reset();
     });
   });
+}
+
+function applyWindPreset(key: string) {
+  const preset = windPresets[key];
+  if (!preset) return;
+  windRows = cloneRows(preset.rows);
+  renderWindRows();
+  forecastStatus.textContent = `Loaded preset: ${preset.label}.`;
+  reset();
 }
 
 function reset() {
@@ -162,6 +233,7 @@ async function loadForecast() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
     windRows = data.layers;
+    controls.windPreset.value = 'readme';
     renderWindRows();
     forecastStatus.textContent = `Loaded ${data.station} ${data.fcst}h forecast from AviationWeather. Valid/use window: ${data.header || 'see source'}`;
     reset();
@@ -339,6 +411,7 @@ function renderMetrics(snapshot: WorldSnapshot, s: RunSummary) {
 }
 
 for (const input of [controls.seed, controls.numJumpers, controls.groupSwitch, controls.exitSeparationS, controls.fastFallFirst]) input.addEventListener('input', reset);
+controls.windPreset.addEventListener('change', () => applyWindPreset(controls.windPreset.value));
 document.querySelector<HTMLButtonElement>('#reset')!.addEventListener('click', reset);
 document.querySelector<HTMLButtonElement>('#pause')!.addEventListener('click', (event) => { paused = !paused; (event.currentTarget as HTMLButtonElement).textContent = paused ? 'Resume' : 'Pause'; });
 document.querySelector<HTMLButtonElement>('#loadForecast')!.addEventListener('click', loadForecast);
